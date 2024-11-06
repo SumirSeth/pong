@@ -7,11 +7,13 @@ int main(int argc, char *argv[]) {
     SDL_Surface *screen = SDL_GetWindowSurface(window);
     SDL_Rect pl1 = (SDL_Rect) {40, 40, 50, 200};
     SDL_Rect pl2 = (SDL_Rect) {540, 200, 50, 200};
+    
     Uint32 color = 0xff0000ff;
-    SDL_FillRect(screen, &pl1, color);
-    SDL_FillRect(screen, &pl2, color);
     int running = 1;
     while (running) {
+        // int x=40,y=40;
+        SDL_FillRect(screen, &pl1, color);
+        SDL_FillRect(screen, &pl2, color);
         SDL_Event event;
         SDL_PollEvent(&event);
         if (event.type == SDL_QUIT){
@@ -19,6 +21,16 @@ int main(int argc, char *argv[]) {
         }
         if (event.type == SDL_KEYDOWN){
             printf("Keydown pressed: %d\n", event.key.keysym.scancode);
+            if (event.key.keysym.scancode == 82){
+                SDL_FillRect(screen, &pl1, 0x00000000);
+                pl1.y -= 5;
+                SDL_FillRect(screen, &pl1, color);
+            }
+            if (event.key.keysym.scancode == 81){
+                SDL_FillRect(screen, &pl1, 0x00000000);
+                pl1.y += 5;
+                SDL_FillRect(screen, &pl1, color);
+            }  
         }
         if (event.type == SDL_KEYUP){
             printf("Keyup pressed: %d\n", event.key.keysym.scancode);
